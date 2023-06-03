@@ -178,4 +178,38 @@ function handleFormSubmit(event) {
       });
   }
   document.getElementById('loginForm').addEventListener('submit', handleFormSubmit);
+ 
+  document.getElementById("submitBtn").addEventListener("click", function() {
+    // Get form values
+    var type = document.getElementById("type").value;
+    var email = document.getElementById("exampleFormControlInput1").value;
+    var password = document.getElementById("inputPassword5").value;
+    var description = document.getElementById("floatingTextarea2").value;
+    var address = document.getElementById("inputAddress").value;
+    var address2 = document.getElementById("inputAddress2").value;
+    var city = document.getElementById("inputCity").value;
+  
+    // Create an object with the form data
+    var formData = {
+      type: type,
+      email: email,
+      password: password,
+      description: description,
+      address: address,
+      address2: address2,
+      city: city
+    };
+  
+    // Send an AJAX request to the server
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "save_data.php", true);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        // Request successful, do something if needed
+        console.log(xhr.responseText);
+      }
+    };
+    xhr.send(JSON.stringify(formData));
+  });
   
